@@ -10,14 +10,15 @@ from colorama import init, Fore, Style
 BLUE = '\033[94m'
 RESET = '\033[0m'
 
+
 class BooleanExpression:
     def __init__(self):
         word = Word(alphanums + '_')
         expr = infixNotation(word,
-            [
-                ('&', 2, opAssoc.LEFT),
-                ('|', 2, opAssoc.LEFT),
-            ])
+                             [
+                                 ('&', 2, opAssoc.LEFT),
+                                 ('|', 2, opAssoc.LEFT),
+                             ])
         self.expr = expr
 
     def evaluate(self, parse_result, content):
@@ -34,11 +35,17 @@ class BooleanExpression:
                     return left and right
                 elif op == '|':
                     return left or right
+            else:  # Handle multiple AND operations
+                result = True
+                for i in range(0, len(parse_result), 2):
+                    result = result and self.evaluate(parse_result[i], content)
+                return result
         return False
 
     def parse_and_evaluate(self, expression, content):
         parsed = self.expr.parseString(expression, parseAll=True)
         return self.evaluate(parsed[0], content)
+
 
 def search_files(directory, expression, include_pattern=None, exclude_pattern=None):
     matching_files = []
@@ -61,6 +68,7 @@ def search_files(directory, expression, include_pattern=None, exclude_pattern=No
                 print(f"Error reading file {file_path}: {e}")
 
     return matching_files
+
 
 def group_files_by_extension(files):
     grouped_files = defaultdict(list)
@@ -133,6 +141,7 @@ def main():
             print("\nContent of matching files has been copied to clipboard.")
     else:
         print(f"No files found matching the expression '{expression}'.")
+
 
 if __name__ == '__main__':
     main()
