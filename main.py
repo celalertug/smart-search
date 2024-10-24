@@ -1,7 +1,11 @@
 import os
 import argparse
 import fnmatch
+from collections import defaultdict
 
+# ANSI color codes
+BLUE = '\033[94m'
+RESET = '\033[0m'
 
 def search_files(directory, search_words, include_pattern=None, exclude_pattern=None, ignore_case=False):
     matching_files = []
@@ -30,6 +34,15 @@ def search_files(directory, search_words, include_pattern=None, exclude_pattern=
     return matching_files
 
 
+def group_files_by_extension(files):
+    grouped_files = defaultdict(list)
+    for file in files:
+        _, extension = os.path.splitext(file)
+        extension = extension.lower()
+        grouped_files[extension].append(file)
+    return grouped_files
+
+
 def main():
     parser = argparse.ArgumentParser(description="Search for words in files recursively.")
     parser.add_argument("directory", help="Directory to search in")
@@ -53,8 +66,11 @@ def main():
 
     if matching_files:
         print(f"Files containing the word(s) {', '.join(search_words)}:")
-        for file in matching_files:
-            print(file)
+        grouped_files = group_files_by_extension(matching_files)
+        for extension, files in sorted(grouped_files.items()):
+            print(f"\n{BLUE}{extension} files:{RESET}")
+            for file in sorted(files):
+                print(f"  {file}")
     else:
         print(f"No files found containing the word(s) {', '.join(search_words)}.")
 
