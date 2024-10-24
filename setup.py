@@ -5,14 +5,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="smsearch",
-    version="0.1.2",  # Start with a version number
+    version="0.1.3",
     author="Celal Ertug",
     author_email="celalertug@gmail.com",
     description="A recursive file searcher with boolean expressions.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/celalertug/smart-search",  # (Optional)
-    packages=setuptools.find_packages(),  # Finds the 'smsearch' package
+    url="https://github.com/celalertug/smart-search",
+    packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -23,10 +23,10 @@ setuptools.setup(
         "colorama",
         "pyperclip",
     ],
-    python_requires='>=3.6', # Specify your minimum Python version
-    entry_points={  # For command-line script entry point
+    python_requires='>=3.6',
+    entry_points={
         'console_scripts': [
-            'smsearch=smsearch.main:main',  # 'smsearch' is the command, smsearch.main:main is the function to call
+            'smsearch=smsearch.main:main',
         ],
     },
 )
