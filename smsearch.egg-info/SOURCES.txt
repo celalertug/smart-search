@@ -1,0 +1,11 @@
+LICENSE.txt
+README.md
+setup.py
+smsearch/__init__.py
+smsearch/main.py
+smsearch.egg-info/PKG-INFO
+smsearch.egg-info/SOURCES.txt
+smsearch.egg-info/dependency_links.txt
+smsearch.egg-info/entry_points.txt
+smsearch.egg-info/requires.txt
+smsearch.egg-info/top_level.txt
