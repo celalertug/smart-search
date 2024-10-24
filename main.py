@@ -2,6 +2,7 @@ import os
 import argparse
 import fnmatch
 from collections import defaultdict
+import pyperclip
 
 # ANSI color codes
 BLUE = '\033[94m'
@@ -27,21 +28,19 @@ def search_files(directory, search_words, include_pattern=None, exclude_pattern=
                     else:
                         words = search_words
                     if all(word in content for word in words):
-                        matching_files.append(file_path)
+                        matching_files.append((file_path, content))
             except Exception as e:
                 print(f"Error reading file {file_path}: {e}")
 
     return matching_files
 
-
 def group_files_by_extension(files):
     grouped_files = defaultdict(list)
-    for file in files:
+    for file, content in files:
         _, extension = os.path.splitext(file)
         extension = extension.lower()
-        grouped_files[extension].append(file)
+        grouped_files[extension].append((file, content))
     return grouped_files
-
 
 def main():
     parser = argparse.ArgumentParser(description="Search for words in files recursively.")
@@ -50,6 +49,7 @@ def main():
     parser.add_argument("-i", "--ignore-case", action="store_true", help="Ignore case when searching")
     parser.add_argument("--include", help="File pattern to include (e.g., '*.txt')")
     parser.add_argument("--exclude", help="File pattern to exclude (e.g., '*.log')")
+    parser.add_argument("-c", "--copy", action="store_true", help="Copy matching file contents to clipboard")
     args = parser.parse_args()
 
     directory = args.directory
@@ -57,6 +57,7 @@ def main():
     ignore_case = args.ignore_case
     include_pattern = args.include
     exclude_pattern = args.exclude
+    copy_to_clipboard = args.copy
 
     if not os.path.isdir(directory):
         print(f"Error: {directory} is not a valid directory.")
@@ -67,13 +68,19 @@ def main():
     if matching_files:
         print(f"Files containing the word(s) {', '.join(search_words)}:")
         grouped_files = group_files_by_extension(matching_files)
+        all_content = []
         for extension, files in sorted(grouped_files.items()):
             print(f"\n{BLUE}{extension} files:{RESET}")
-            for file in sorted(files):
+            for file, content in sorted(files):
                 print(f"  {file}")
+                all_content.append(f"--- {file} ---\n``` \n {content}\n``` \n")
+
+        if copy_to_clipboard:
+            clipboard_content = "\n".join(all_content)
+            pyperclip.copy(clipboard_content)
+            print("\nContent of matching files has been copied to clipboard.")
     else:
         print(f"No files found containing the word(s) {', '.join(search_words)}.")
-
 
 if __name__ == '__main__':
     main()
