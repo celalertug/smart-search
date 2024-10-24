@@ -1,10 +1,10 @@
 Metadata-Version: 2.1
 Name: smsearch
-Version: 0.1.0
+Version: 0.1.1
 Summary: A recursive file searcher with boolean expressions.
 Home-page: https://github.com/celalertug/smart-search
-Author: Your Name
-Author-email: your.email@example.com
+Author: Celal Ertug
+Author-email: celalertug@gmail.com
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
@@ -30,6 +30,21 @@ This Python script allows you to recursively search for files within a directory
 * **Colored Output:** Uses color-coded output for improved readability (requires `colorama`).
 * **File Grouping by Extension:** Groups found files by their extensions for clearer presentation.
 * **UTF-8 Support:** Handles files encoded in UTF-8.
+
+
+## Usage
+
+You can install this package using pip:
+
+```bash
+pip install smsearch
+```
+
+If you installed via pip, you can use the command:
+
+```bash
+smsearch <directory> <expression> [--include <pattern>] [--exclude <pattern>] [-c]smsearch <directory> <expression> [--include <pattern>] [--exclude <pattern>] [-c]
+```
 
 
 
