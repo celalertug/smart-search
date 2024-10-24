@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: smsearch
-Version: 0.1.1
+Version: 0.1.2
 Summary: A recursive file searcher with boolean expressions.
 Home-page: https://github.com/celalertug/smart-search
 Author: Celal Ertug

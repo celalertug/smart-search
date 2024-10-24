@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="smsearch",
-    version="0.1.1",  # Start with a version number
+    version="0.1.2",  # Start with a version number
     author="Celal Ertug",
     author_email="celalertug@gmail.com",
     description="A recursive file searcher with boolean expressions.",
