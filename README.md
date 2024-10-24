@@ -15,6 +15,21 @@ This Python script allows you to recursively search for files within a directory
 * **UTF-8 Support:** Handles files encoded in UTF-8.
 
 
+## Usage
+
+You can install this package using pip:
+
+```bash
+pip install smsearch
+```
+
+If you installed via pip, you can use the command:
+
+```bash
+smsearch <directory> <expression> [--include <pattern>] [--exclude <pattern>] [-c]smsearch <directory> <expression> [--include <pattern>] [--exclude <pattern>] [-c]
+```
+
+
 
 ## Installation
 
